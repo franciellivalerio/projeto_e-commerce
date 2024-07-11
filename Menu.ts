@@ -1,7 +1,6 @@
 import * as readlineSync from 'readline-sync';
-import { Produto } from './src/Produtos';
-import { CartItem } from './src/CartItem';
-import { ShoppingCart } from './src/ShoppingCart';
+import { Produto } from './src/model/Produtos';
+import { CartItem } from './src/model/CartItem';
 
 
 
@@ -43,9 +42,8 @@ function exibirMenu(): void {
         console.log("2. Adicionar Produto ao Carrinho");
         console.log("3. Remover Produto do Carrinho");
         console.log("4. Ver Carrinho");
-        console.log("5. Registrar Usuário");
-        console.log("6. Finalizar Compra");
-        console.log("7. Sair");
+        console.log("5. Finalizar Compra");
+        console.log("6. Sair");
 
         const escolha = readlineSync.questionInt("Digite sua escolha: ");
 
