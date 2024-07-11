@@ -1,21 +1,6 @@
 import { Produto } from "./Produtos";
 
 export class CartItem {
-    adicionarItem(novoItem: CartItem) {
-        throw new Error('Method not implemented.');
-    }
-    removerItem(removerProdutoId: number) {
-        throw new Error('Method not implemented.');
-    }
-    listarItens() {
-        throw new Error('Method not implemented.');
-    }
-    getCustoTotal() {
-        throw new Error('Method not implemented.');
-    }
-    get_TotalPreco() {
-        throw new Error("Method not implemented.");
-    }
 	
 	private _produto: Produto;
 	private _quantidade: number;
@@ -26,7 +11,10 @@ export class CartItem {
 		this._quantidade = quantidade;
 		this._Id = Id;
 	}
-
+	
+	public get_TotalPreco() {
+		return this._produto.get_preco() * this._quantidade;
+		}
 	public get_produto(): Produto {
 		return this._produto;
 	}

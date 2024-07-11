@@ -1,8 +1,17 @@
-export  class  Produto {
+export abstract class  Produto {
+    static get_preco(): number {
+        throw new Error("Method not implemented.");
+    }
+    static get_nome(): string {
+        throw new Error("Method not implemented.");
+    }
+    static get_Id(): number {
+        throw new Error("Method not implemented.");
+    }
     
-    private _nome: string;
-    private _preco: number;
-    private _Id: number;
+    public _nome: string;
+    public _preco: number;
+    public _Id: number;
 
 	constructor(Id: number, nome: string, preco: number) {
 		this._nome = nome;
