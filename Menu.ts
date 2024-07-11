@@ -1,51 +1,58 @@
-import * as readlineSync from 'readline-sync';
+import  readlineSync from 'readline-sync';
 import { Produto } from './src/model/Produtos';
 import { CartItem } from './src/model/CartItem';
+import { Controller } from './src/controller/Controller';
+import { ProdutoEletronico } from './src/model/ProdutoEletronico';
 
 
+let controller = new Controller();
+let total;
 
 // Função para criar produtos
 function criarProdutos (): Produto[] {
     return [
-        new Produto(1, "Laptop", 1200),
-        new Produto(2, "Smartphone", 800),
-        new Produto(3, "Headphones", 150),
-        new Produto(4, "Mouse", 50),
-        new Produto(5, "Teclado", 100),
-        new Produto(6, "Monitor", 300),
-        new Produto(7, "Webcam", 80),
-        new Produto(8, "Microfone", 70),
-        new Produto(9, "Cadeira Gamer", 400),
-        new Produto(10, "Mesa Gamer", 250),
-        new Produto(11, "Gabinete Gamer", 150),
-        new Produto(12, "Placa de Vídeo", 500),
-        new Produto(13, "Processador", 300),
-        new Produto(14, "Memória RAM", 100),
-        new Produto(15, "Placa Mãe", 200),
-        new Produto(16, "Fonte de Alimentação", 80),
-        new Produto(17, "Cooler", 30),
-        new Produto(18, "HD Externo", 120),
-        new Produto(19, "SSD", 80),
-        new Produto(20, "Roteador", 60),
+        new ProdutoEletronico (1, "Laptop", 1200),
+        new ProdutoEletronico(2, "Smartphone", 800),
+        new ProdutoEletronico (3, "Headphones", 150),
+        new ProdutoEletronico (4, "Mouse", 50),
+        new ProdutoEletronico (5, "Teclado", 100),
+        new ProdutoEletronico (6, "Monitor", 300),
+        new ProdutoEletronico (7, "Webcam", 80),
+        new ProdutoEletronico (8, "Microfone", 70),
+        new ProdutoEletronico (9, "Cadeira Gamer", 400),
+        new ProdutoEletronico (10, "Mesa Gamer", 250),
+        new ProdutoEletronico (11, "Gabinete Gamer", 150),
+        new ProdutoEletronico (12, "Placa de Vídeo", 500),
+        new ProdutoEletronico (13, "Processador", 300),
+        new ProdutoEletronico (14, "Memória RAM", 100),
+        new ProdutoEletronico (15, "Placa Mãe", 200),
+        new ProdutoEletronico (16, "Fonte de Alimentação", 80),
+        new ProdutoEletronico (17, "Cooler", 30),
+        new ProdutoEletronico (18, "HD Externo", 120),
+        new ProdutoEletronico (19, "SSD", 80),
+        new ProdutoEletronico (20, "Roteador", 60),
     ];
 }
 
 // Função para exibir o menu e processar a entrada do usuário
 function exibirMenu(): void {
     const produtos = criarProdutos();
-    const produto = new Produto(1, "Produto exemplo", 100); // Replace the values with the actual values for the product
-    const carrinho = new CartItem(produto, 80, "7");
 
     while (true) {
-        console.log("\n=== Menu de E-commerce ===");
-        console.log("1. Listar Produtos");
-        console.log("2. Adicionar Produto ao Carrinho");
-        console.log("3. Remover Produto do Carrinho");
-        console.log("4. Ver Carrinho");
-        console.log("5. Finalizar Compra");
-        console.log("6. Sair");
-
-        const escolha = readlineSync.questionInt("Digite sua escolha: ");
+        console.log("*****************************************************");
+        console.log("                                                     ");
+        console.log("                STAR TECNOLOGY SHOP                  ");
+        console.log("                                                     ");
+        console.log("*****************************************************");
+        console.log("                                                     ");
+        console.log("            1 - Listar produtos disponíveis          ");
+        console.log("            2 - Adicionar Produto ao Carrinho        ");
+        console.log("            3 - Remover Produto do Carrinho          ");
+        console.log("            4 - Ver carrinho e finalizar a compra    ");
+        console.log("            5 - Sair                                 ");
+        console.log("*****************************************************");
+            
+            const escolha = readlineSync.questionInt("Digite sua escolha: ");
 
         switch (escolha) {
             case 1:
@@ -62,7 +69,7 @@ function exibirMenu(): void {
                 if (produtoSelecionado) {
                     const quantidade = readlineSync.questionInt(`Digite a quantidade para ${produtoSelecionado.get_nome()}: `);
                     const novoItem = new CartItem(produtoSelecionado, quantidade, "1");
-                    carrinho.adicionarItem(novoItem);
+                    controller.adicionarItem(novoItem);
                     console.log(`Adicionado ${quantidade} ${produtoSelecionado.get_nome()}(s) ao carrinho.`);
                 } else {
                     console.log("Produto não encontrado.");
@@ -71,24 +78,19 @@ function exibirMenu(): void {
 
             case 3:
                 const removerProdutoId = readlineSync.questionInt("Digite o ID do produto para remover do carrinho: ");
-                carrinho.removerItem(removerProdutoId);
+                controller.removerItem(removerProdutoId);
                 console.log(`Removido produto ID ${removerProdutoId} do carrinho.`);
                 break;
 
             case 4:
                 console.log("\n=== Carrinho de Compras ===");
-                carrinho.listarItens();
-                console.log(`Custo Total: R$${carrinho.getCustoTotal()}`);
-                break;
-
-            case 5:
-                console.log("\n=== Finalizar Compra ===");
-                console.log(`Custo Total: R$${carrinho.getCustoTotal()}`);
-                console.log("Obrigado pela sua compra!");
+                controller.listarItem();
+                total = controller.get_TotalPreco();
+                console.log(`Custo Total: R$${total}`);
+                console.log("Obrigado pela sua compra!")
                 process.exit(0);
                 
-
-            case 6:
+            case 5:
                 console.log("Saindo...");
                 process.exit(0);
                 
@@ -98,6 +100,4 @@ function exibirMenu(): void {
         }
     }
 }
-
-// Executa o menu
 exibirMenu();
